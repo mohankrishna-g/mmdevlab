@@ -28,3 +28,30 @@ Set JAVA_HOME & MAVEN_HOME as environment variables on Jenkins machine
 	PATH=$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
 	close & save the file
 	source /etc/profile  -- to reload the configuration
+
+------------------------------------another method------------------------------------------------
+ cd /usr/local/src
+# wget http://www-us.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
+Extract the downloaded archive file, and rename it using following commands.
+
+# tar -xf apache-maven-3.5.4-bin.tar.gz
+# mv apache-maven-3.5.4/ apache-maven/ 
+Configure Apache Maven Environment
+Now we need to configure the environments variables to pre-compiled Apache Maven files on our system by creating a configuration file ‘maven.sh’ in the ‘/etc/profile.d’ directory.
+
+# cd /etc/profile.d/
+# vim maven.sh
+Add the following configuration in ‘maven.sh’ configuration file.
+
+# Apache Maven Environment Variables
+# MAVEN_HOME for Maven 1 - M2_HOME for Maven 2
+export M2_HOME=/usr/local/src/apache-maven
+export PATH=${M2_HOME}/bin:${PATH}
+Now make the ‘maven.sh’ configuration file executable and then load the configuration by running the ‘source’ command.
+
+# chmod +x maven.sh
+# source /etc/profile.d/maven.sh
+Check Apache Maven Version
+To verify Apache Maven installation, run the following maven command.
+
+# mvn --version
